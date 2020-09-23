@@ -20,7 +20,7 @@ namespace ApiUsuario.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [HttpGet]
-        public IActionResult GetUsuarios(int pageIndex, int pageSize)
+        public IActionResult GetAll(int pageIndex, int pageSize)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace ApiUsuario.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [HttpGet("{id}")]
-        public IActionResult GetUsuario(string id)
+        public IActionResult Get(string id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace ApiUsuario.Controllers
         {
             try
             {
-                return Ok(_service.GetByName(name));
+                return Ok(_service.GetByName(name).Result);
             }
             catch (Exception e)
             {
@@ -68,11 +68,11 @@ namespace ApiUsuario.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public async Task<IActionResult> PostUsuario(Usuario usuario)
+        public IActionResult Post(Usuario usuario)
         {
             try
             {
-                return Ok(await _service.Post(usuario));
+                return Ok(_service.Post(usuario).Result);
             }
             catch (Exception e)
             {
@@ -84,7 +84,7 @@ namespace ApiUsuario.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuario(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             try
             {
